@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="
+width=device-width,
+initial-scale=1,
+maximum-scale=1,
+user-scalable=no,
+viewport-fit=cover
+">
+
+<title>LIVE MARKET</title>
+
+<meta name="theme-color" content="#050816">
+
+<link rel="apple-touch-icon"
+href="https://cdn-icons-png.flaticon.com/512/5968/5968260.png">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link href="
+https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap
+"
+rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,
+body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+body{
+
+  font-family:'Vazirmatn',sans-serif;
+
+  background:
+    radial-gradient(circle at top right,#162544 0%,transparent 30%),
+    radial-gradient(circle at bottom left,#063d2c 0%,transparent 30%),
+    linear-gradient(135deg,#030712 0%,#07111f 100%);
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:
+    max(20px,env(safe-area-inset-top))
+    20px
+    max(20px,env(safe-area-inset-bottom))
+    20px;
+
+}
+
+/* GLASS */
+
+.panel{
+
+  width:100%;
+  max-width:420px;
+
+  border-radius:34px;
+
+  padding:24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.08),
+      rgba(255,255,255,.03)
+    );
+
+  backdrop-filter:blur(20px);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 10px 50px rgba(0,0,0,.5),
+    0 0 120px rgba(0,255,174,.06);
+
+}
+
+/* HEADER */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+
+.title{
+  font-size:24px;
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #5ee7ff,
+      #00ffae
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.live{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  font-size:12px;
+  color:#94a3b8;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#00ffae;
+
+  box-shadow:0 0 16px #00ffae;
+
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(.9);
+    box-shadow:0 0 0 0 rgba(0,255,174,.6);
+  }
+
+  70%{
+    transform:scale(1);
+    box-shadow:0 0 0 10px rgba(0,255,174,0);
+  }
+
+  100%{
+    transform:scale(.9);
+    box-shadow:0 0 0 0 rgba(0,255,174,0);
+  }
+
+}
+
+/* ROWS */
+
+.rows{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.row{
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(255,255,255,.05);
+
+  border-radius:22px;
+
+  padding:18px;
+
+  transition:.25s;
+}
+
+.row:active{
+  transform:scale(.98);
+}
+
+.left{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.icon{
+
+  width:52px;
+  height:52px;
+
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:24px;
+  font-weight:900;
+}
+
+.usdt{
+  background:linear-gradient(135deg,#00ffae,#00c896);
+  color:#02120d;
+}
+
+.btc{
+  background:linear-gradient(135deg,#ffb300,#ff7b00);
+  color:#1f1300;
+}
+
+.oil{
+  background:linear-gradient(135deg,#5ee7ff,#3478ff);
+  color:#02111b;
+}
+
+.name{
+  font-size:16px;
+  font-weight:800;
+}
+
+.source{
+  font-size:11px;
+  color:#94a3b8;
+  margin-top:4px;
+}
+
+.value{
+  text-align:left;
+}
+
+.price{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-1px;
+
+  transition:.2s;
+}
+
+.unit{
+  font-size:11px;
+  color:#94a3b8;
+  margin-top:4px;
+}
+
+/* FLASH */
+
+.flash-up{
+  color:#00ffae!important;
+}
+
+.flash-down{
+  color:#ff5d7a!important;
+}
+
+/* FOOTER */
+
+.footer{
+
+  margin-top:24px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  color:#64748b;
+  font-size:11px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="panel">
+
+  <div class="header">
+
+    <div class="title">
+      LIVE MARKET
+    </div>
+
+    <div class="live">
+      <div class="dot"></div>
+      <span>Realtime</span>
+    </div>
+
+  </div>
+
+  <div class="rows">
+
+    <!-- USDT -->
+
+    <div class="row">
+
+      <div class="left">
+
+        <div class="icon usdt">
+          ₮
+        </div>
+
+        <div>
+
+          <div class="name">
+            USDT
+          </div>
+
+          <div class="source">
+            Bitpin
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="value">
+
+        <div class="price"
+        id="usdt-price">
+          ...
+        </div>
+
+        <div class="unit">
+          TOMAN
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BTC -->
+
+    <div class="row">
+
+      <div class="left">
+
+        <div class="icon btc">
+          ₿
+        </div>
+
+        <div>
+
+          <div class="name">
+            Bitcoin
+          </div>
+
+          <div class="source">
+            Binance
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="value">
+
+        <div class="price"
+        id="btc-price">
+          ...
+        </div>
+
+        <div class="unit">
+          USD
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- OIL -->
+
+    <div class="row">
+
+      <div class="left">
+
+        <div class="icon oil">
+          ⬢
+        </div>
+
+        <div>
+
+          <div class="name">
+            Brent Oil
+          </div>
+
+          <div class="source">
+            Yahoo Finance
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="value">
+
+        <div class="price"
+        id="oil-price">
+          ...
+        </div>
+
+        <div class="unit">
+          USD
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+
+    <div id="time">
+      connecting...
+    </div>
+
+    <div>
+      refresh 5s
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+// LAST VALUES
+
+let last = {
+  usdt:0,
+  btc:0,
+  oil:0
+}
+
+// FORMAT
+
+function num(v,d=false){
+
+  if(!v || isNaN(v)) return "...";
+
+  return Number(v).toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits:d ? 2 : 0,
+      maximumFractionDigits:d ? 2 : 0
+    }
+  )
+
+}
+
+// FLASH EFFECT
+
+function setPrice(id,val,dec=false){
+
+  const el =
+    document.getElementById(id + "-price")
+
+  if(last[id] !== 0){
+
+    if(val > last[id]){
+
+      el.classList.add("flash-up")
+
+      setTimeout(()=>{
+        el.classList.remove("flash-up")
+      },700)
+
+    }
+
+    if(val < last[id]){
+
+      el.classList.add("flash-down")
+
+      setTimeout(()=>{
+        el.classList.remove("flash-down")
+      },700)
+
+    }
+
+  }
+
+  el.innerText = num(val,dec)
+
+  last[id] = val
+
+}
+
+// CACHE
+
+const cb = () => `_=${Date.now()}`
+
+// USDT
+
+async function fetchUSDT(){
+
+  try{
+
+    const res = await fetch(
+      `https://api.bitpin.ir/v1/mkt/markets/?${cb()}`
+    )
+
+    const data = await res.json()
+
+    let price = Number(
+      data.results.find(
+        m => m.code === "USDT_IRT"
+      ).price
+    )
+
+    if(price > 200000){
+      price = price / 10
+    }
+
+    setPrice(
+      "usdt",
+      Math.round(price)
+    )
+
+  }catch(e){}
+
+}
+
+// BTC
+
+async function fetchBTC(){
+
+  try{
+
+    const res = await fetch(
+      `https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT&${cb()}`
+    )
+
+    const data = await res.json()
+
+    setPrice(
+      "btc",
+      Math.round(
+        Number(data.price)
+      )
+    )
+
+  }catch(e){}
+
+}
+
+// OIL
+
+async function fetchOil(){
+
+  try{
+
+    const res = await fetch(
+      `https://query1.finance.yahoo.com/v8/finance/chart/BZ=F?${cb()}`
+    )
+
+    const data = await res.json()
+
+    const price =
+      data.chart.result[0]
+      .meta.regularMarketPrice
+
+    setPrice(
+      "oil",
+      price,
+      true
+    )
+
+  }catch(e){}
+
+}
+
+// UPDATE
+
+async function updateAll(){
+
+  await Promise.all([
+    fetchUSDT(),
+    fetchBTC(),
+    fetchOil()
+  ])
+
+  document.getElementById("time")
+  .innerText =
+    "Updated " +
+    new Date().toLocaleTimeString()
+
+}
+
+// START
+
+updateAll()
+
+setInterval(updateAll,5000)
+
+</script>
+
+</body>
+</html>
